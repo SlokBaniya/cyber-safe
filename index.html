@@ -1,0 +1,1164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cyber Safe: Learn and Quiz</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Public+Sans:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #eef3f1;
+        --ink: #10222b;
+        --mute: #4d6470;
+        --card: #fff;
+        --line: #c9d7d3;
+        --acc: #0b6e66;
+        --aI: #fff;
+        --ok: #1b7f3b;
+        --bad: #b3261e;
+        --warn: #f2b705;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0d1a1f;
+          --ink: #e6efed;
+          --mute: #9bb2ba;
+          --card: #14272e;
+          --line: #27424b;
+          --acc: #3fd0c0;
+          --aI: #06201d;
+          --ok: #5fd68a;
+          --bad: #ff8a80;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font: 400 1.02rem/1.6 "Public Sans", system-ui, sans-serif;
+      }
+      h1, h2, h3, .brand {
+        font-family: "Bricolage Grotesque", system-ui, sans-serif;
+        line-height: 1.1;
+        margin: 0 0 0.5em;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding: 0.7rem 1.2rem;
+        border-bottom: 2px solid var(--ink);
+        position: sticky;
+        top: 0;
+        background: var(--bg);
+        z-index: 5;
+      }
+      .brand {
+        font-weight: 800;
+        font-size: 1.3rem;
+        margin: 0 auto 0 0;
+      }
+      nav a {
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 600;
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        border: 2px solid transparent;
+      }
+      nav a.on, nav a:hover {
+        border-color: var(--ink);
+      }
+      main {
+        max-width: 62rem;
+        margin: 0 auto;
+        padding: 1.8rem 1.2rem 4rem;
+        outline: none;
+      }
+      h1 {
+        font-size: clamp(2.2rem, 7vw, 3.8rem);
+        font-weight: 800;
+      }
+      h2 {
+        font-size: clamp(1.5rem, 4vw, 2.1rem);
+        font-weight: 800;
+      }
+      .lede {
+        color: var(--mute);
+        font-size: 1.15rem;
+        max-width: 60ch;
+      }
+      .btn {
+        background: var(--acc);
+        color: var(--aI);
+        border: 2px solid var(--ink);
+        border-radius: 8px;
+        padding: 0.6rem 1.1rem;
+        font: 600 1rem "Public Sans", sans-serif;
+        cursor: pointer;
+        box-shadow: 3px 3px 0 var(--ink);
+        text-decoration: none;
+        display: inline-block;
+        transition: transform 0.1s ease, box-shadow 0.1s ease;
+      }
+      .btn:hover {
+        transform: translate(1px, 1px);
+        box-shadow: 2px 2px 0 var(--ink);
+      }
+      .btn.g {
+        background: transparent;
+        color: var(--ink);
+      }
+      :focus-visible {
+        outline: 3px solid var(--warn);
+        outline-offset: 2px;
+      }
+      .row {
+        display: flex;
+        gap: 0.7rem;
+        flex-wrap: wrap;
+        margin: 1.2rem 0;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+      .card {
+        background: var(--card);
+        border: 2px solid var(--line);
+        border-radius: 10px;
+        padding: 1rem 1.1rem;
+      }
+      .card h3 {
+        font-size: 1.2rem;
+        margin: 0;
+      }
+      .card p {
+        margin: 0.4rem 0;
+        color: var(--mute);
+      }
+      .tg {
+        background: none;
+        border: 0;
+        color: var(--acc);
+        font: 600 0.95rem inherit;
+        cursor: pointer;
+        padding: 0;
+        text-decoration: underline;
+      }
+      .card ul {
+        padding-left: 1.1rem;
+        margin: 0.6rem 0;
+      }
+      .card li {
+        margin: 0.35rem 0;
+      }
+      .topic-figure {
+        background: var(--card);
+        border: 2px solid var(--line);
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 1.5rem 0;
+        box-shadow: 2px 2px 0 var(--line);
+      }
+      .topic-figure img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        display: block;
+      }
+      .topic-figure figcaption {
+        font-size: 0.9rem;
+        color: var(--mute);
+        padding: 0.8rem 1rem;
+        font-weight: 600;
+        background: color-mix(in srgb, var(--acc) 5%, var(--card));
+        border-top: 1px solid var(--line);
+      }
+      .example-box {
+        background: color-mix(in srgb, var(--acc) 8%, var(--card));
+        border-left: 5px solid var(--acc);
+        padding: 1rem 1.2rem;
+        margin: 1rem 0;
+        border-radius: 0 8px 8px 0;
+      }
+      .example-box h4 {
+        margin: 0 0 0.4rem;
+        font-family: "Bricolage Grotesque", system-ui, sans-serif;
+        color: var(--ink);
+        font-size: 1.05rem;
+      }
+      .example-box p {
+        margin: 0;
+        color: var(--ink);
+      }
+      .quiz {
+        display: grid;
+        grid-template-columns: 1fr 16rem;
+        gap: 1.2rem;
+        align-items: start;
+      }
+      @media (max-width: 760px) {
+        .quiz {
+          grid-template-columns: 1fr;
+        }
+      }
+      .meta {
+        color: var(--mute);
+        font-weight: 600;
+        margin: 0 0 0.4rem;
+      }
+      .opt, .dropdown-select {
+        display: block;
+        width: 100%;
+        text-align: left;
+        margin: 0.55rem 0;
+        padding: 0.75rem 1rem;
+        background: var(--card);
+        color: var(--ink);
+        border: 2px solid var(--line);
+        border-radius: 8px;
+        font: inherit;
+        cursor: pointer;
+      }
+      .dropdown-select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 1.1em;
+      }
+      .opt:hover:not(:disabled) {
+        border-color: var(--ink);
+      }
+      .opt.r {
+        border-color: var(--ok);
+        background: color-mix(in srgb, var(--ok) 18%, var(--card));
+      }
+      .opt.w {
+        border-color: var(--bad);
+        background: color-mix(in srgb, var(--bad) 18%, var(--card));
+      }
+      .sb {
+        position: sticky;
+        top: 4.5rem;
+      }
+      .sb h3 {
+        font-size: 1.1rem;
+      }
+      .stat {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.25rem 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .stat b {
+        font-variant-numeric: tabular-nums;
+      }
+      .big {
+        font: 800 3rem "Bricolage Grotesque", sans-serif;
+        line-height: 1;
+      }
+      .bar {
+        height: 10px;
+        border: 2px solid var(--ink);
+        border-radius: 6px;
+        overflow: hidden;
+        margin: 0.5rem 0;
+      }
+      .bar i {
+        display: block;
+        height: 100%;
+        background: var(--acc);
+        transition: width 0.3s;
+      }
+      .tb {
+        display: grid;
+        grid-template-columns: 7rem 1fr 2.6rem;
+        gap: 0.5rem;
+        align-items: center;
+        font-size: 0.9rem;
+        margin: 0.3rem 0;
+      }
+      .tb .bar {
+        margin: 0;
+        height: 8px;
+      }
+      .score {
+        font: 800 clamp(4.5rem, 16vw, 7.5rem) "Bricolage Grotesque", sans-serif;
+        line-height: 1;
+      }
+      .miss {
+        border-left: 5px solid var(--bad);
+        padding: 0.4rem 0.8rem;
+        margin: 0.7rem 0;
+        background: var(--card);
+        border-radius: 0 8px 8px 0;
+      }
+      .btn[disabled] {
+        opacity: 0.45;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 0.6rem 0 1.4rem;
+      }
+      .chips .btn {
+        padding: 0.35rem 0.8rem;
+        font-size: 0.9rem;
+        box-shadow: none;
+      }
+      .chap h3 {
+        margin: 1.5rem 0 0.3rem;
+        font-size: 1.3rem;
+      }
+      .chap p {
+        max-width: 68ch;
+      }
+      .cn {
+        color: var(--mute);
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span class="brand">Cyber Safe</span>
+      <nav id="nav">
+        <a href="#topics">Topics</a> <a href="#quiz">Quiz</a>
+        <a href="#results">Results</a>
+      </nav>
+    </header>
+    <main id="app" tabindex="-1"></main>
+    <noscript><p style="padding: 2rem">Please enable JavaScript.</p></noscript>
+    <script>
+      const TOPICS = [
+        {
+          n: "What is Phishing?",
+          d: "Messages that pretend to be someone you trust to steal information or get you to click.",
+          img: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
+          caption: "Figure 1: Deceptive emails and digital lures simulate trusted institutions to capture login credentials.",
+          p: [
+            "Arrives by email, text (smishing) or call (vishing).",
+            "Signs: urgency, threats, requests for passwords.",
+            "Go to the official site yourself instead of using the link.",
+          ],
+          q: [
+            "Phishing is mainly an attempt to…|Trick you into giving information|Speed up your device|Delete old files|Improve Wi-Fi",
+            "Phishing by text message is called…|Smishing|Vishing|Pharming|Tailgating",
+            "Phishing by phone call is called…|Vishing|Smishing|Baiting|Spamming",
+            "A common sign of phishing is…|Pressure to act immediately|A message you were expecting|A reply to your own question|A newsletter you subscribed to",
+            "Best response to a suspicious bank message?|Open the bank's official app yourself|Click the link|Reply with details|Forward it to friends",
+            "Phishing aimed at one specific person is…|Spear phishing|Mass phishing|Adware|Spam filtering",
+            "Phishing emails often ask you to…|Verify your login details|Change your wallpaper|Share a recipe|Join a book club",
+            "You clicked a phishing link. First step?|Disconnect and change your passwords|Ignore it|Click more links|Wait a month",
+            "Where should you report phishing?|Your email provider or IT team|Nowhere|Social media|The sender",
+            "Phishers use fear because it…|Makes people act before thinking|Improves spelling|Saves money|Is required by law",
+            "Select the correct primary vector for Smishing:|Text message (SMS)|Email attachment|Landline voice call|Physical USB drive",
+            "True or False: Legitimate banking institutions will ask for your complete account password via email text link.|False|True"
+          ],
+        },
+        {
+          n: "Spot the Fake Email",
+          d: "Fake emails copy real brands, but small details give them away.",
+          img: "https://cdn.pixabay.com/photo/2019/06/19/07/13/email-4284157_1280.png?auto=format&fit=crop&w=800&q=80",
+          caption: "Figure 2: Inspecting URLs, domain names, and headers helps expose fraudulent sender addresses.",
+          p: [
+            "Check the full sender address, not just the display name.",
+            "Hover over links to see where they really go.",
+            "Watch for generic greetings, typos and surprise attachments.",
+          ],
+          q: [
+            "What should you check first in a suspicious email?|The full sender address|The font|The email length|The time zone",
+            "Hovering over a link shows…|Its real destination|The sender's age|Your password|The file size",
+            "Which domain looks fake?|amaz0n-support.com|amazon.com|support.amazon.com|aws.amazon.com",
+            'A greeting like "Dear Customer" is…|A warning sign|Always safe|Proof it\'s real|Required by law',
+            "Unexpected attachments from strangers should be…|Left unopened|Opened quickly|Forwarded to friends|Saved to desktop",
+            "Many spelling errors in a \"company\" email suggest…|It may be fake|It's official|It's encrypted|It's from the CEO",
+            "A real company will never email you asking for your…|Full password|Order number|Name|Language preference",
+            "A sender's display name can be…|Faked easily|Impossible to fake|Always verified|Unchangeable",
+            "Safest way to visit your bank from an email?|Type the bank's address yourself|Click the email link|Use a shortened link|Reply to the email",
+            '"Your account closes in 1 hour" is using…|Urgency|Politeness|Encryption|Humor',
+            "Select the correct element to inspect destination URLs safely:|Hover cursor over link without clicking|Click link immediately to check browser status|Forward link to coworkers|Right-click and print email",
+            "True or False: Official corporate emails frequently contain severe spelling and grammar mistakes.|False|True"
+          ],
+        },
+        {
+          n: "Strong vs. Weak Passwords",
+          d: "A strong password is long, unique and hard to guess.",
+          img: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=800&q=80",
+          caption: "Figure 3: Long passphrases managed securely protect accounts from credential stuffing attacks.",
+          p: [
+            "Use 12 or more characters; passphrases work well.",
+            "Use a different password for every account.",
+            "A password manager creates and remembers them for you.",
+          ],
+          q: [
+            "Recommended minimum password length?|12+ characters|4 characters|6 characters|Any length",
+            "Which password is strongest?|Blue-Cactus-Rain-Lamp-72|password1|12345678|myname2000",
+            "Best way to manage many passwords?|A password manager|Reuse one password|Sticky notes|Share with friends",
+            "Why avoid reusing passwords?|One breach exposes all accounts|They expire|Sites forbid it|It slows login",
+            "Which is a bad password choice?|Your birthday|A random passphrase|A long mix of words|A generated 16-character string",
+            "A passphrase is…|Several random words joined together|One short word|Your phone number|A PIN",
+            "When should you change a strong, unique password?|After a breach or suspicion|Every day|Every hour|Never, even after a breach",
+            "Should you email your password to IT support?|No, never|Yes|Only on Fridays|If they ask politely",
+            "Credential stuffing uses…|Leaked passwords tried on other sites|Fake Wi-Fi|USB drives|Phone calls",
+            "A password manager's master password should be…|Long and unique|Your pet's name|\"password\"|Shared with family",
+            "Select the ideal tool for generating and storing unique credentials:|Dedicated password manager application|Writing notes on physical paper|Remembering all variations mentally|Saving plaintext files on desktop",
+            "True or False: Using the same complex password across multiple secure websites guarantees complete account safety.|False|True"
+          ],
+        },
+        {
+          n: "Social Engineering",
+          d: "Attackers trick people instead of computers, using trust, fear and helpfulness.",
+          img: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80",
+          caption: "Figure 4: Social engineering exploits human psychology and trust rather than software vulnerabilities.",
+          p: [
+            "Pretexting: pretending to be IT, a boss or a courier.",
+            'Baiting: infected USB drives or "free" downloads.',
+            "Tailgating: following someone through a secured door.",
+          ],
+          q: [
+            "Social engineering mainly targets…|People|Only servers|Only routers|Only printers",
+            "Pretexting means…|Inventing a false story to gain trust|Guessing passwords|Scanning ports|Updating software",
+            "Tailgating is…|Following someone into a secure area|Sending spam|Cracking a hash|Cloning a site",
+            "Baiting often uses…|Infected USB drives or free offers|Firewalls|Backups|Encrypted email",
+            "A caller claiming to be your CEO demands urgent payment. You…|Verify through a known channel|Pay immediately|Send gift cards|Share passwords",
+            "Why do attackers pose as authority figures?|People tend to comply|It's cheaper|It's legal|It's faster",
+            "A stranger without a badge asks you to hold the door. You…|Direct them to reception|Let them in|Lend your badge|Ignore security",
+            "A quid pro quo scam offers…|A favor in exchange for information|A software update|A password reset|A coupon only",
+            "Best defense against social engineering?|Pause and verify|Trust everyone|Reply fast|Disable security",
+            "Shoulder surfing is…|Watching someone enter private info|Using a VPN|Cleaning a screen|Sharing a screen",
+            "Select the primary tactic used in Pretexting scams:|Inventing a fabricated scenario to build false trust|Sending automated malware payloads|Scanning local network ports|Cracking Wi-Fi keys",
+            "True or False: Social engineering attacks require advanced programming skills to compromise an organization.|False|True"
+          ],
+        },
+        {
+          n: "Safe Social Media Habits",
+          d: "What you post can be used by scammers and strangers. Share with care.",
+          img: "https://cdn.pixabay.com/photo/2020/05/18/16/17/social-media-5187243_1280.png?auto=format&fit=crop&w=800&q=80",
+          caption: "Figure 5: Oversharing personal details and live locations online provides data for security questions.",
+          p: [
+            "Keep your profile private and review who sees your posts.",
+            "Don't share your address, school, birthday or live location.",
+            "Accept requests only from people you know.",
+          ],
+          q: [
+            "Safest default profile setting?|Private|Public|Always share location|Show phone number",
+            "Posting vacation photos live can…|Tell burglars you're away|Improve security|Fix Wi-Fi|Hide your address",
+            "Before accepting a friend request, check…|Whether you actually know them|Only their follower count|Their profile color|Nothing",
+            "Which is unsafe to share publicly?|Your home address|Your favorite food|A hobby|A pet photo",
+            "Quizzes asking your first pet or street can…|Reveal security answers|Improve memory|Boost privacy|Protect accounts",
+            "Fake profiles are often used for…|Scams and gathering information|Software updates|Backups|Encryption",
+            "Once posted online, content…|Can be copied and may stay online|Disappears automatically|Is always private|Is deleted in 24 hours",
+            "Photos can reveal location through…|Metadata and background details|Filters|Captions only|Emoji",
+            'A "friend" DMs asking for urgent money. You…|Verify by calling them|Send it|Share your PIN|Send a card number',
+            "Review your privacy settings…|Regularly|Never|Only on your birthday|Only after a hack",
+            "Select the most secure setting for social media profiles:|Private visibility restricted to approved contacts|Public visibility open to global search engines|Unlisted links shared in public forums|Anonymous guest posting mode",
+            "True or False: Images posted online can accidentally leak precise geographic location coordinates via file metadata.|True|False"
+          ],
+        },
+        {
+          n: "Public Wi-Fi Dangers",
+          d: "Free Wi-Fi is convenient, but others on the network may see your activity.",
+          img: "https://cdn.pixabay.com/photo/2020/07/26/05/30/wi-fi-5438427_1280.png?auto=format&fit=crop&w=800&q=80",
+          caption: "Figure 6: Unsecured public hotspots can expose traffic unless protected by a VPN or mobile network.",
+          p: [
+            "Fake hotspots (evil twins) copy real network names.",
+            "Avoid banking or shopping on public Wi-Fi.",
+            "Use mobile data or a trusted VPN; turn off auto-connect.",
+          ],
+          q: [
+            "Main risk of public Wi-Fi?|Others may intercept your traffic|It's too fast|It drains battery|It shows ads",
+            'An "evil twin" is…|A fake hotspot imitating a real one|A backup router|A virus scanner|A VPN',
+            "Safer way to bank away from home?|Mobile data|Cafe Wi-Fi|Hotel lobby Wi-Fi|Any free hotspot",
+            "A VPN helps by…|Encrypting your traffic|Speeding up Wi-Fi|Removing viruses|Blocking all ads",
+            "Auto-connect to known networks should be…|Turned off|Always on|Required|Shared",
+            "HTTPS in the address bar means…|Traffic to that site is encrypted|The site is trustworthy|You're anonymous|The hotspot is safe",
+            "Before using cafe Wi-Fi you should…|Confirm the network name with staff|Pick the strongest signal|Join any open network|Disable your passcode",
+            "A man-in-the-middle attack…|Intercepts communication between two parties|Deletes files|Boosts signal|Updates apps",
+            "After using public Wi-Fi you should…|Forget the network|Stay connected|Share it|Leave sharing on",
+            "Turning off file sharing on public networks…|Reduces exposure|Slows your PC|Is illegal|Does nothing",
+            "Select the technology designed to encrypt data streams across unsecured wireless networks:|Virtual Private Network (VPN)|Standard HTTP proxy|Public DNS resolver|Bluetooth pairing",
+            "True or False: Open public Wi-Fi networks without password requirements ensure complete data encryption for all users.|False|True"
+          ],
+        },
+        {
+          n: "Two-Factor Authentication",
+          d: "2FA asks for a second proof of identity in addition to your password.",
+          img: "https://cdn.pixabay.com/photo/2025/05/20/12/24/data-privacy-9611622_1280.jpg?auto=format&fit=crop&w=800&q=80",
+          caption: "Figure 7: 2FA provides a critical security barrier so stolen passwords alone cannot breach accounts.",
+          p: [
+            "Second factor: authenticator app, security key or code.",
+            "Stops attackers even if your password leaks.",
+            "Never share your codes with anyone.",
+          ],
+          q: [
+            "2FA requires…|Two different proofs of identity|Two passwords|Two emails|Two phones always",
+            "Which is a second factor?|An authenticator app code|Your username|A second password|Your email address",
+            "Generally the safest 2FA method?|Hardware security key|SMS code|Email code|Security question",
+            "A 2FA code you didn't request may mean…|Someone has your password|A software update|A free prize|Nothing",
+            "Should you read a 2FA code to a caller?|Never|If they're polite|If they claim to be support|Yes",
+            "A fingerprint is…|Something you are|Something you know|Something you have|Something you forget",
+            "A password is…|Something you know|Something you are|Something you have|A biometric",
+            "Backup codes should be…|Stored safely offline|Posted online|Emailed to friends|Ignored",
+            "2FA still protects you if…|Your password leaks|You share codes|You click every link|You disable it",
+            "SIM swapping is a risk mainly for…|SMS-based 2FA|Hardware keys|Printed books|Offline files",
+            "Select the most secure form of 2FA verification:|Hardware security key (FIDO2/WebAuthn)|SMS text message code|Automated voice phone call|Unencrypted email token",
+            "True or False: Receiving an unsolicited 2FA verification code implies an unauthorized party is attempting to access your account.|True|False"
+          ],
+        },
+        {
+          n: "Recognizing Scams",
+          d: "Scams change often, but most use the same tricks.",
+          img: "https://cdn.pixabay.com/photo/2022/09/15/17/45/scam-7456961_1280.png?auto=format&fit=crop&w=800&q=80",
+          caption: "Figure 8: Recognizing urgency, artificial pressure, and unusual payment demands stops financial fraud.",
+          p: [
+            'Pressure and urgency: "Act now!"',
+            "Offers too good to be true.",
+            "Odd payment requests: gift cards, wire transfers, crypto.",
+          ],
+          q: [
+            "A common scam payment demand?|Gift cards|A store receipt|A credit report|A bank statement",
+            '"You won a prize you never entered" is…|A scam red flag|Legit|A bank notice|A tax refund',
+            "Scammers create…|Urgency and pressure|Long waits|Patience|Open discussion",
+            "Romance scams usually end in…|Requests for money|Marriage|Free gifts|Software updates",
+            "A popup says your PC is infected, call now. It's…|Likely a scam|Official|Free help|A Windows feature",
+            "Guaranteed high investment returns are…|Very likely a scam|Safe|Government backed|Insured",
+            "If you've been scammed you should…|Report it and alert your bank|Hide it|Pay again|Delete evidence",
+            "Payments that are hard to reverse include…|Wire transfers and crypto|Credit card chargebacks|Store refunds|Card disputes",
+            "A job offer asking you to pay a fee first is…|A scam sign|Normal|Required|A bonus",
+            "Best way to check a surprising offer?|Contact the company via official channels|Reply to the sender|Click the link|Pay to confirm",
+            "Select the classic hallmark indicator of financial fraud attempts:|Demand for immediate payment via gift cards or crypto|Written invoice sent through standard postal mail|Official bank statement reviewed in branch|Pre-scheduled automatic direct debit",
+            "True or False: Guaranteed high investment returns with zero risk are standard offerings from certified financial advisors.|False|True"
+          ],
+        },
+        {
+          n: "Protecting Personal Information",
+          d: "Your details are valuable. Share the minimum and protect the rest.",
+          img: "https://cdn.pixabay.com/photo/2018/05/29/10/35/gdpr-3438462_1280.jpg?auto=format&fit=crop&w=800&q=80",
+          caption: "Figure 9: Guarding sensitive data, shredding documents, and keeping software updated prevents identity theft.",
+          p: [
+            "Guard ID numbers, bank details and passwords.",
+            "Shred papers with personal details.",
+            "Install updates promptly; they fix security holes.",
+          ],
+          q: [
+            "Which is most sensitive?|National ID or Social Security number|Favorite color|Public username|Shoe size",
+            "Papers with personal info should be…|Shredded|Left in the trash|Posted online|Recycled whole",
+            "Software updates matter because they…|Fix security flaws|Change colors|Slow devices|Add ads",
+            "Identity theft means…|Someone uses your identity for gain|Losing a phone|Forgetting a password|Changing your name",
+            "Check bank statements…|Regularly for odd charges|Never|Yearly|Only when asked",
+            "Share personal data…|Only as needed by the service|With everyone|With strangers|With all apps",
+            "A device passcode…|Protects data if lost|Is unnecessary|Slows data|Disables apps",
+            "Backups protect against…|Data loss and ransomware|Spam|Weather|Slow Wi-Fi",
+            "App permissions should be…|Limited to what's needed|All allowed|Ignored|Shared",
+            "Before disposing of an old phone…|Back up and factory reset|Leave data on it|Give it away logged in|Sell it as is",
+            "Select the correct procedure before recycling an old mobile device:|Perform full factory reset and data wipe|Delete browser bookmarks only|Sign out of social media apps|Remove battery without clearing storage",
+            "True or False: Promptly installing software updates is unnecessary if your operating system runs smoothly.|False|True"
+          ],
+        },
+        {
+          n: "Final Cybersecurity Challenge",
+          d: "A mixed review of everything: spot, verify, protect.",
+          img: "https://cdn.pixabay.com/photo/2024/05/23/12/24/ai-generated-8783105_1280.jpg?auto=format&fit=crop&w=800&q=80",
+          caption: "Figure 10: Combining daily awareness habits with strong multi-factor authentication ensures online safety.",
+          p: [
+            "Pause on urgent messages; check sender and links.",
+            "Long unique passwords plus 2FA.",
+            "Verify strangers, avoid risky Wi-Fi, share little.",
+          ],
+          q: [
+            "Best combo for account security?|Unique long password plus 2FA|Short password plus birthday|One password everywhere|Password on a sticky note",
+            "An urgent email demands you log in via its link. You…|Open the official site directly|Click it|Reply|Forward it",
+            'Safest on airport Wi-Fi?|A VPN or mobile data|Join "Free WiFi"|Disable updates|Share your login',
+            'A caller wants remote access to "fix" your PC. You…|Hang up|Allow it|Give your password|Give your card',
+            "Which habit improves security most?|Enabling 2FA|Ignoring updates|Reusing passwords|Clicking links fast",
+            "A free USB drive found on the street…|Don't plug it in|Plug it in|Share it|Format it at home",
+            "A scam signal?|Pressure to pay quickly|A clear invoice|An official letter|A receipt",
+            "What should stay private on social media?|Home address and live location|A hobby|A favorite song|A meme",
+            "Update your phone software…|Promptly|Never|After a year|Only if broken",
+            "First move on spotting phishing?|Don't click; report it|Click to confirm|Reply|Forward widely",
+            "Select the ultimate best practice for online account protection:|Combining unique robust passphrases with multi-factor authentication|Using identical short passwords across all services|Disabling all security prompts for convenience|Sharing login keys with trusted peers",
+            "True or False: Cybersecurity relies entirely on software tools rather than everyday human awareness and habits.|False|True"
+          ],
+        },
+      ];
+
+      const CHAPTERS = [
+        [
+          [
+            "How it works",
+            "Attackers send messages that look like they come from a bank, delivery company or coworker. The goal is to make you click a link, open a file or type a password into a fake page.",
+          ],
+          [
+            "Common forms",
+            "Email is the classic channel, but text messages (smishing) and phone calls (vishing) are just as common. Spear phishing targets one person using details found online, which makes it harder to spot.",
+          ],
+          [
+            "What to do",
+            "Stop and look at the sender and the link. Don't use links in the message; open the official app or type the address yourself. If you already clicked, disconnect, change your passwords and tell your IT team or provider.",
+          ],
+          [
+            "Practical Example",
+            "You receive an SMS stating: 'URGENT: Your parcel delivery failed. Confirm address immediately at http://track-parcel-update.info.' Clicking this leads to a clone of the postal service website designed to steal your credit card details for a $1 redelivery fee. <i>Correct action:</i> Delete the text and check the official delivery app directly."
+          ],
+        ],
+        [
+          [
+            "Check the sender",
+            "The name shown can say anything. Open the full address and look for lookalike domains such as amaz0n-support.com, extra words or odd endings.",
+          ],
+          [
+            "Inspect the content",
+            "Look for generic greetings, urgent deadlines, spelling mistakes and requests for sensitive data. Hover over links to preview the real address, and be wary of unexpected attachments.",
+          ],
+          [
+            "Verify safely",
+            "Contact the company through its official website or phone number, not the details in the email. When in doubt, report the email as phishing and delete it.",
+          ],
+          [
+            "Practical Example",
+            "An email arrives from 'Netflix Billing' with the subject 'Subscription Suspended'. The display name looks correct, but expanding the header reveals the sender address is support@netflx-billing-update.com. Notice the missing 'i' in 'netflx' and the random domain. <i>Correct action:</i> Do not click links; log in via netflix.com to check your actual account status."
+          ],
+        ],
+        [
+          [
+            "Length beats complexity",
+            "Each extra character multiplies the work needed to crack a password. Aim for at least 12 characters, ideally a passphrase made of several random words.",
+          ],
+          [
+            "Never reuse",
+            "Attackers try leaked passwords on other sites, which is called credential stuffing. A unique password per account means one breach can't unlock everything.",
+          ],
+          [
+            "Make it manageable",
+            "A password manager generates and stores strong passwords, so you only remember one long master password. Avoid birthdays, names and patterns like qwerty.",
+          ],
+          [
+            "Practical Example",
+            "Weak password: <i>'Sun123!'</i> (easily cracked by automated tools in seconds). Strong passphrase: <i>'Correct-Battery-Horse-Staple-99!'</i> (virtually uncrackable due to length and word separation). Furthermore, using a password manager means you never have to memorize 20 different complex strings."
+          ],
+        ],
+        [
+          [
+            "Hacking people",
+            "Social engineering manipulates trust, fear, curiosity or helpfulness to get access or information. It often needs no technical skill at all.",
+          ],
+          [
+            "Common tricks",
+            "Pretexting invents a believable story, such as posing as IT or a courier. Baiting leaves infected USB drives or offers free downloads. Tailgating follows you through a secured door.",
+          ],
+          [
+            "Your defense",
+            "Slow down, ask who is really asking and verify through a channel you already trust. It is fine to say no, even to someone who sounds important.",
+          ],
+          [
+            "Practical Example",
+            "An office worker is carrying heavy boxes through a secure doorway when a stranger in casual clothes says, 'Hi, I left my employee badge at my desk, could you hold the door for me?' Yielding to politeness allows unauthorized physical access. <i>Correct action:</i> Politely direct them to check in at reception."
+          ],
+        ],
+        [
+          [
+            "Oversharing adds up",
+            "Small details like your school, pet's name, routine and photos can be pieced together to guess passwords, answer security questions or plan a scam.",
+          ],
+          [
+            "Control who sees",
+            "Set profiles to private, review friend lists and limit who can tag you. Photos can carry location data and background clues, so check before posting.",
+          ],
+          [
+            "Spot fakes",
+            "Fake profiles collect information and push scams. Accept requests only from people you know, and verify unusual requests for money by calling the person.",
+          ],
+          [
+            "Practical Example",
+            "Posting a photo of your boarding pass at the airport on Instagram while tagging your hometown and pet's name. Scammers harvest the barcode on the boarding pass for travel details and use your pet's name to guess security answers on banking profiles. <i>Correct action:</i> Keep profiles private and share travel memories only after returning."
+          ],
+        ],
+        [
+          [
+            "Why it's risky",
+            "On an open network, other people may be able to watch or tamper with your traffic. Attackers can also run fake hotspots with believable names.",
+          ],
+          [
+            "Safer habits",
+            "Use mobile data for banking and shopping. If you must use public Wi-Fi, use a trusted VPN, visit HTTPS sites and avoid logging in to sensitive accounts.",
+          ],
+          [
+            "Tidy up",
+            "Turn off auto-connect and file sharing, confirm the exact network name with staff, and forget the network when you leave.",
+          ],
+          [
+            "Practical Example",
+            "You sit at a coffee shop and connect to an open network named 'CoffeeShop_Free_WiFi'. Unknown to you, an attacker set up an 'Evil Twin' router with the exact same name to capture your web traffic and login inputs. <i>Correct action:</i> Always verify exact network names with staff or use your phone's secure mobile hotspot."
+          ],
+        ],
+        [
+          [
+            "What it adds",
+            "A password alone can be stolen. 2FA also asks for something you have (a phone or key) or something you are (a fingerprint), so a stolen password isn't enough.",
+          ],
+          [
+            "Choose the method",
+            "Hardware security keys and authenticator apps are stronger than SMS codes, which can be intercepted through SIM swapping. Save backup codes somewhere safe and offline.",
+          ],
+          [
+            "Protect the codes",
+            "Never read a code out to anyone. A code you didn't request means someone may have your password, so change it right away.",
+          ],
+          [
+            "Practical Example",
+            "An attacker steals your email password from a breached forum. When they try to log into your primary email account, a prompt demands a 6-digit code from your authenticator app or hardware key. Because the attacker lacks your physical phone, they are blocked entirely."
+          ],
+        ],
+        [
+          [
+            "Same tricks, new clothes",
+            "Most scams rely on urgency, fear, greed or romance. They push you to act before you can think or check with anyone.",
+          ],
+          [
+            "Red flags",
+            "Prizes you never entered, guaranteed returns, upfront fees, secrecy, and payment by gift card, wire transfer or crypto. Real organizations don't demand these.",
+          ],
+          [
+            "If it happens",
+            "Stop contact, tell your bank straight away, keep the messages as evidence and report the scam to the relevant authority. Acting fast can limit the loss.",
+          ],
+          [
+            "Practical Example",
+            "You receive an urgent phone call claiming to be from government tax authorities stating you owe immediate back taxes and must pay via Apple Gift Cards to avoid police arrest. <i>Correct action:</i> Hang up immediately. Government agencies never demand payment via retail gift cards or cryptocurrency."
+          ],
+        ],
+        [
+          [
+            "What to protect",
+            "Identity numbers, bank details, passwords, medical records and your address are valuable to criminals. Identity theft can mean loans or purchases made in your name.",
+          ],
+          [
+            "Everyday habits",
+            "Share only what a service truly needs, shred papers with personal details, lock your devices and review app permissions. Install updates promptly because they fix security holes.",
+          ],
+          [
+            "Be prepared",
+            "Keep regular backups, check statements for odd charges and reset old phones before selling or recycling them.",
+          ],
+          [
+            "Practical Example",
+            "A newly downloaded mobile flashlight app requests full access to your contacts, microphone, and precise GPS location. A flashlight requires none of these permissions to operate. <i>Correct action:</i> Deny unnecessary permissions or uninstall the app to prevent data harvesting."
+          ],
+        ],
+        [
+          [
+            "Think, verify, protect",
+            "Almost every attack depends on a rushed decision. Pause on urgent messages, verify through trusted channels and protect accounts with strong passwords and 2FA.",
+          ],
+          [
+            "Build the habits",
+            "Update your devices, back up your data, keep social profiles private and avoid risky Wi-Fi. Small habits repeated daily beat one big effort.",
+          ],
+          [
+            "Help others",
+            "Share what you've learned with family and friends, especially those less confident online, and report scams you see.",
+          ],
+          [
+            "Practical Example",
+            "Comprehensive scenario: You receive an urgent email from your 'cloud storage provider' warning that your storage is full and demanding immediate sign-in via link. <i>Your secure workflow:</i> (1) Pause and recognize the urgency pressure; (2) Ignore the link; (3) Open your browser and navigate directly to your cloud dashboard; (4) Confirm your account is secure and protected by multi-factor authentication."
+          ],
+        ],
+      ];
+
+      const EXTRA = [
+        [
+          "Which of these is a typical phishing channel?|Email, text or phone call|Only paper mail|Only TV ads|Only radio",
+          "A fake login page is designed to…|Capture what you type|Protect your account|Speed up login|Update your browser",
+          'A text says "Your parcel is held, pay now." You should…|Check the courier\'s official app|Pay the fee|Reply with your card|Forward it',
+          "Why are phishing messages sent to thousands of people?|Only a few need to fall for it|Each person is chosen carefully|It's required|It's cheaper to print",
+          "Which detail makes spear phishing convincing?|Personal info about the target|Random words|Poor grammar|Blank messages",
+          "An email threatens account closure. You should…|Contact the company via official channels|Click immediately|Reply with your PIN|Ignore your bank forever",
+          "Phishing attachments may contain…|Malware|Free security|Updates only|Nothing harmful",
+          "Real banks usually do not…|Ask for your full password by message|Send statements|Show your name|Offer an app",
+          "After entering your password on a fake page, you should…|Change it at once and enable 2FA|Do nothing|Share it again|Wait a week",
+          "Phishing is dangerous mainly because it…|Looks like a trusted sender|Is always loud|Needs special hardware|Only affects old PCs",
+        ],
+        [
+          "A link says paypal.com but hovers to another site. It's…|Suspicious|Safe|Verified|Encrypted",
+          "The sender name says \"Your Bank\" but the address is random@mail.xyz. This means…|It's likely fake|It's official|It's secure|It's verified",
+          "Why check the reply-to address?|Replies may go to the attacker|It speeds delivery|It adds security|It hides spam",
+          "A file named invoice.pdf.exe is…|A dangerous program|A normal PDF|An image|A spreadsheet",
+          "Which request is a red flag in an email?|Confirm your password via this link|Here is your receipt|Meeting at 3 pm|A newsletter you chose",
+          "An email from your boss asks for gift cards. You should…|Confirm by phone or in person|Buy them quickly|Reply with the codes|Forward it to everyone",
+          "A shortened link in an unknown email…|Hides its real destination|Is always safe|Is encrypted|Is verified",
+          "Safest way to handle a suspicious attachment?|Don't open it; report it|Open it in a hurry|Forward it|Download it twice",
+          "Which email feature helps filter fakes?|Spam and phishing filters|Larger fonts|Dark mode|Read receipts",
+          "After spotting a fake email, you should…|Report it and delete it|Reply to mock them|Click to test|Keep it in your inbox",
+        ],
+        [
+          "What makes a password harder to crack?|More length|Using your name|Repeating characters|Using a pattern",
+          "Which is a weak password?|qwerty123|Maple-Orbit-Teapot-91|Rt9#kLm2$vQp|Blue-Door-Sky-Fox-82",
+          "Where is a safe place to store passwords?|A password manager|A sticky note on your monitor|A shared document|A text to a friend",
+          "A pet's name plus a year is…|Easy to guess|Strong|Uncrackable|Recommended",
+          "Who should know your password?|Only you|Your friends|Your coworkers|Anyone who asks",
+          "Why avoid substitutions like p@ssw0rd?|Attackers already try them|They're too long|They're illegal|They're slow",
+          "A data breach is…|Unauthorized access to stored data|A software update|A strong password|A backup",
+          "Which tool checks if your email appeared in a breach?|A breach-checking service|A calculator|A photo editor|A spreadsheet",
+          "If an account is breached, you should…|Change that password and any reused ones|Do nothing|Share it|Delete your email",
+          "Browser-saved passwords are safest when…|The device is locked and protected|The device is shared|The screen is off|Anyone can open it",
+        ],
+        [
+          "Social engineering often exploits…|Emotions like fear and trust|Weak routers|Old keyboards|Printer ink",
+          'A "delivery driver" asks to be let into a secure area. You…|Check with reception first|Hold the door|Give them your badge|Ignore policy',
+          "Which is an example of baiting?|A USB drive left in a lobby|A firewall alert|A software patch|A backup",
+          "Why do attackers create urgency?|To stop you from thinking|To save you time|To be polite|To follow the law",
+          "A caller knows your name and address. This proves…|Nothing about their identity|They are official|They are your bank|They are safe",
+          "Best way to verify a caller claiming to be your bank?|Hang up and call the number on your card|Trust the caller ID|Give details to confirm|Call the number they give",
+          "Which is a sign of pretexting?|A detailed false story to gain trust|A routine update|A system log|A firewall rule",
+          "If you gave information to a social engineer, you should…|Report it quickly and change passwords|Hide it|Wait|Delete your accounts",
+          "Piggybacking and tailgating both involve…|Entering a restricted area behind someone|Cracking passwords|Sending phishing|Cloning cards",
+          "Security training helps because…|People are often the target|Computers don't matter|Attackers avoid people|It replaces passwords",
+        ],
+        [
+          "Which setting limits who sees your posts?|Privacy settings|Notification sounds|Dark mode|Language",
+          "Sharing your location in real time may…|Help strangers find you|Improve privacy|Hide your routine|Protect your home",
+          "A stranger sends a link in a DM. You should…|Not open it|Open it quickly|Share it|Reply with details",
+          "Why think before posting?|Posts can be copied and last|Posts always vanish|Only friends see everything|Nothing is saved",
+          "Which is the riskiest photo to post?|A boarding pass with a barcode|A sunset|A coffee|A flower",
+          "Tagging your workplace and schedule can…|Reveal your routine|Improve security|Block scammers|Hide you",
+          "If your account is hacked, you should…|Change the password and enable 2FA|Ignore it|Post more|Delete your phone",
+          "Cloned profiles send friend requests to…|Trick your contacts|Help you|Update software|Protect data",
+          "Which is safer to share online?|A general hobby|Your passport number|Your home address|Your PIN",
+          "Oversharing helps attackers to…|Guess passwords or answers|Fix bugs|Back up data|Block spam",
+        ],
+        [
+          "A VPN on public Wi-Fi mainly…|Encrypts your connection|Makes it free|Removes all risk|Blocks all malware",
+          "Which activity is riskiest on public Wi-Fi?|Online banking|Reading a public news site|Playing downloaded music|Checking the time",
+          "A network with no password is…|Open and less secure|Always safe|Encrypted|Verified",
+          "Your phone's hotspot is generally…|Safer than public Wi-Fi|Less safe than open Wi-Fi|Public|Shared with strangers",
+          "Attackers can create fake networks that…|Copy real network names|Fix your Wi-Fi|Improve speed|Block ads",
+          "A certificate warning appears on public Wi-Fi. You should…|Leave the site|Click through|Disable the warning|Enter your password",
+          "Which protects you more on public Wi-Fi?|HTTPS plus a VPN|Weak passwords|File sharing on|Auto-connect on",
+          "Why do attackers like busy public places?|Many people connect carelessly|They are quiet|Signals are weaker|Nobody uses phones",
+          "Best way to confirm an official hotspot name?|Ask staff|Pick the first one|Pick the strongest|Pick the open one",
+          "On a public computer you should…|Log out and not save passwords|Save passwords|Stay logged in|Install apps",
+        ],
+        [
+          "Which 2FA method best resists phishing?|A hardware security key|SMS codes|Email codes|Security questions",
+          "An authenticator app code usually…|Changes every 30 seconds|Never changes|Is a password|Is always emailed",
+          "What should you do with 2FA backup codes?|Store them safely offline|Post them online|Share them|Delete them",
+          "You lose the phone with your authenticator. You should…|Use backup codes or recovery options|Give up|Share your password|Disable all security",
+          "2FA stops attackers who only have…|Your password|Your phone and password|Your unlocked phone|Your backup codes",
+          "Push notification fatigue attacks rely on…|Repeated approval requests|Strong passwords|Hardware keys|Offline codes",
+          "Which is something you have?|A security key|A password|A fingerprint|A PIN you remember",
+          "A login approval prompt appears that you didn't trigger. You should…|Deny it and change your password|Approve it|Ignore it|Share it",
+          "Which accounts should get 2FA first?|Email, banking and social media|Only games|Only shopping lists|None",
+          "Why protect your email with 2FA?|It can reset your other accounts|It stores no data|It is never targeted|It has no password",
+        ],
+        [
+          "A caller says you owe taxes and must pay in gift cards. It's…|A scam|Official|A routine bill|A refund",
+          "A shopping scam sign is…|Prices far below market and no reviews|A known store with reviews|A secure checkout|A clear return policy",
+          "Fake charity scams often appear after…|Disasters and news events|Software updates|Birthdays|Weekends only",
+          "A buyer overpays by check and asks for a refund of the difference. It's…|A classic scam|Normal|Safe|Required",
+          "Scammers prefer payment methods that are…|Hard to trace or reverse|Easy to refund|Insured|Slow",
+          "A stranger on a dating app asks for money. You should…|Stop and report the profile|Send it|Share your PIN|Give them time",
+          "A safe way to check a company is…|Searching its official website yourself|Using the link they sent|Calling a number in the message|Trusting the logo",
+          "Scam texts often claim…|Package or bank problems|Software release notes|Weather|Sports scores",
+          "Where can you report scams?|Your bank and local authorities|Nowhere|Only to the scammer|Only to friends",
+          "The best defense against scams is…|Slowing down and verifying|Acting quickly|Trusting offers|Sharing details",
+        ],
+        [
+          "Which is personal data?|Your address and birth date|The weather|A public news article|A recipe",
+          "Stolen identity details can lead to…|Identity theft|Faster internet|Free software|Better backups",
+          "A site asks for your full ID to send a newsletter. You should…|Not provide it|Provide it|Post it|Share it with friends",
+          "Which setting helps if your phone is lost?|Remote lock or wipe|A louder ringtone|A bigger font|Dark mode",
+          "Public records and social posts can help attackers…|Build a profile of you|Fix your devices|Back up files|Block spam",
+          "Why use different emails for important accounts?|It limits damage if one is exposed|It's required by law|It's faster|It saves space",
+          "Old documents with personal data should be…|Shredded|Thrown in the trash|Left outside|Posted online",
+          "A credit freeze or alert helps…|Prevent new accounts in your name|Speed up Wi-Fi|Block ads|Back up photos",
+          "When an app asks for permissions, you should…|Allow only what it needs|Allow everything|Ignore the prompt|Share with others",
+          "Sensitive files in cloud storage should have…|Strong passwords and 2FA|Public sharing|Shared links|No protection",
+        ],
+        [
+          'An urgent text from your "bank" arrives. First step?|Open the official app yourself|Tap the link|Call the number in the text|Reply with details',
+          "Which pair protects an account best?|A passphrase and an authenticator app|A short password and SMS only|Your birthday and pet's name|The same password and no 2FA",
+          "At a hotel you need to check your bank. Best option?|Mobile data|Open hotel Wi-Fi|A guest PC|Any hotspot",
+          "A friend's account asks for money urgently. You…|Call them to verify|Send it|Share your PIN|Reply with a code",
+          "Which action reduces the impact of ransomware?|Regular backups|Ignoring updates|Opening unknown files|Using one password",
+          "Best response to a surprise prize message?|Ignore and report it|Click to claim|Pay the fee|Share your ID",
+          "Which habit protects personal info online?|Sharing the minimum|Posting everything|Public profiles|Reusing passwords",
+          "You find a USB drive in the parking lot. You…|Hand it to IT without plugging it in|Plug it in|Take it home|Share it",
+          "Who should you tell if you click a phishing link at work?|Your IT or security team|No one|A stranger|The sender",
+          "Which statement is true?|Anyone can be a target, so stay alert|Only experts are targeted|Only big companies are targeted|Attackers avoid individuals",
+        ],
+      ];
+
+      TOPICS.forEach((t, i) => {
+        t.c = CHAPTERS[i];
+        t.q.push(...EXTRA[i]);
+      });
+
+      const ALL = TOPICS.flatMap((t, ti) =>
+        t.q.map((s) => {
+          const [q, a, ...w] = s.split("|");
+          const isTf = (w.length === 1 && (a === "True" || a === "False") && (w[0] === "True" || w[0] === "False"));
+          const isDropdown = q.toLowerCase().includes("select");
+          return { q, a, o: [a, ...w], t: ti, isTf, isDropdown };
+        }),
+      );
+
+      const $ = (s) => document.querySelector(s),
+        app = $("#app");
+      const shuf = (a) =>
+        a
+          .map((v) => [Math.random(), v])
+          .sort((x, y) => x[0] - y[0])
+          .map((x) => x[1]);
+      const E = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+      let S = null,
+        open = -1,
+        last = null;
+      try {
+        last = JSON.parse(localStorage.getItem("cyberLast") || "null");
+      } catch (e) {}
+
+      function topics() {
+        app.innerHTML = `
+          <div class="hero-section" style="margin-bottom: 2rem; padding: 2rem 0; border-bottom: 2px solid var(--line);">
+            <span class="cn">Interactive Security Academy</span>
+            <h1>Protect Your Digital Life, Chapter by Chapter.</h1>
+            <p class="lede">Master essential cybersecurity habits through bite-sized reads, real-world examples, and randomized quizzes. Test your skills across multiple-choice, dropdowns, and true/false challenges.</p>
+            <div class="row" style="margin-top: 1.2rem;">
+              <a class="btn" href="#quiz">Take the Main Quiz (20 Qs)</a>
+              <a class="btn g" href="#topic/1">Start Learning Chapter 1</a>
+            </div>
+          </div>
+          
+          <h2>All Chapters</h2>
+          <p class="meta">Select a topic below to read concepts, review practical examples, or take a targeted quiz.</p>
+          <div class="grid">${TOPICS.map((t, i) => `<article class="card"><p class="cn">Chapter ${i + 1}</p><h3>${t.n}</h3><p>${t.d}</p><a class="tg" href="#topic/${i + 1}">Read chapter & view examples</a></article>`).join("")}</div>`;
+      }
+
+      function chapter(i) {
+        const t = TOPICS[i];
+        app.innerHTML = `<div class="chap"><p class="meta">Chapter ${i + 1} of ${TOPICS.length}</p><h1>${t.n}</h1><p class="lede">${t.d}</p>
+  <figure class="topic-figure"><img src="${t.img}" alt="${t.n} illustration" loading="lazy"><figcaption>${t.caption}</figcaption></figure>
+  ${t.c.map(([h, x]) => h.includes("Example") ? `<div class="example-box"><h4>${h}</h4><p>${x}</p></div>` : `<h3>${h}</h3><p>${x}</p>`).join("")}
+  <div class="card" style="margin-top:1.5rem"><h3 style="margin-top:0">Quick recap</h3><ul>${t.p.map((x) => `<li>${x}</li>`).join("")}</ul></div></div>
+  <div class="row"><button class="btn" data-go="t${i}">Take the chapter quiz (10 questions)</button></div>
+  <div class="row">${i > 0 ? `<a class="btn g" href="#topic/${i}">Previous chapter</a>` : ""}${i < TOPICS.length - 1 ? `<a class="btn g" href="#topic/${i + 2}">Next chapter</a>` : ""}<a class="btn g" href="#topics">All chapters</a></div>`;
+      }
+
+      function start(mode) {
+        const main = mode === "all",
+          ti = +mode.slice(1);
+        const list = main
+          ? shuf(ALL).slice(0, 20)
+          : shuf(ALL.filter((q) => q.t === ti)).slice(0, 10);
+        S = {
+          list,
+          opts: list.map((q) => shuf(q.o)),
+          ans: list.map(() => null),
+          i: 0,
+          title: main ? "Main quiz" : TOPICS[ti].n,
+        };
+        if (location.hash === "#quiz") quiz();
+        else location.hash = "quiz";
+      }
+
+      function stats() {
+        let right = 0,
+          wrong = 0,
+          streak = 0,
+          best = 0,
+          by = TOPICS.map(() => [0, 0]),
+          miss = [];
+        S.list.forEach((q, k) => {
+          const a = S.ans[k];
+          if (a === null) return;
+          const y = S.opts[k][a];
+          by[q.t][1]++;
+          if (y === q.a) {
+            right++;
+            by[q.t][0]++;
+            streak++;
+            best = Math.max(best, streak);
+          } else {
+            wrong++;
+            streak = 0;
+            miss.push({ q: q.q, a: q.a, y });
+          }
+        });
+        return { right, wrong, streak, best, by, miss };
+      }
+
+      function sb(st) {
+        const n = st.right + st.wrong,
+          acc = n ? Math.round((st.right / n) * 100) : 0;
+        return `<aside class="card sb" aria-label="Live scoreboard"><h3>Live scoreboard</h3><div class="big">${st.right}</div>
+  <div class="bar"><i style="width:${(n / S.list.length) * 100}%"></i></div>
+  <div class="stat"><span>Answered</span><b>${n}/${S.list.length}</b></div><div class="stat"><span>Correct</span><b>${st.right}</b></div>
+  <div class="stat"><span>Wrong</span><b>${st.wrong}</b></div><div class="stat"><span>Accuracy</span><b>${acc}%</b></div>
+  <div class="stat"><span>Streak</span><b>${st.streak}</b></div><div class="stat"><span>Best streak</span><b>${st.best}</b></div></aside>`;
+      }
+
+      function quiz() {
+        if (!S) {
+          app.innerHTML = `<h1>${last ? "Take another quiz" : "Take the quiz"}</h1><p class="lede">Questions are picked at random every time. Leaving this page restarts the quiz.</p>
+    <div class="row"><button class="btn" data-go="all">Main quiz (20 random questions)</button></div>
+    <p class="meta">Or take a chapter quiz (10 random questions):</p><div class="chips">${TOPICS.map((t, i) => `<button class="btn g" data-go="t${i}">${i + 1}.${t.n}</button>`).join("")}</div>
+    ${last ? `<div class="card"><p class="meta">Your last result · ${E(last.title)}</p><div class="big">${Math.round((last.right / last.tot) * 100)}%</div><p>${last.right} of${last.tot} correct · best streak ${last.best}</p><a class="btn g" href="#results">View full results</a></div>` : ""}`;
+          return;
+        }
+        const k = S.i,
+          q = S.list[k],
+          a = S.ans[k],
+          done = a !== null,
+          end = k === S.list.length - 1,
+          st = stats();
+
+        let inputHtml = "";
+        if (q.isDropdown) {
+          inputHtml = `<select class="dropdown-select" id="dropdown-answer" ${done ? "disabled" : ""}><option value="">-- Select correct option --</option>${S.opts[k].map((o, j) => `<option value="${j}" ${done && a === j ? "selected" : ""}>${E(o)}</option>`).join("")}</select>`;
+          if (!done) {
+            setTimeout(() => {
+              const sel = $("#dropdown-answer");
+              if (sel) {
+                sel.onchange = (e) => {
+                  if (e.target.value !== "") pick(+e.target.value);
+                };
+              }
+            }, 0);
+          }
+        } else {
+          inputHtml = S.opts[k].map((o, j) => `<button class="opt ${done ? (o === q.a ? "r" : j === a ? "w" : "") : ""}" data-pick="${j}" ${done ? "disabled" : ""}>${E(o)}</button>`).join("");
+        }
+
+        app.innerHTML = `<div class="quiz"><section><p class="meta">${E(S.title)} · Question ${k + 1} of ${S.list.length} · ${TOPICS[q.t].n}</p><h2>${E(q.q)}</h2>
+  ${inputHtml}
+  <div aria-live="polite" class="meta" style="margin-top:0.8rem">${done ? (S.opts[k][a] === q.a ? "Correct!" : "Not quite. The correct answer is highlighted.") : "Choose or select an answer."}</div>
+  <div class="row"><button class="btn g" id="prev" ${k === 0 ? "disabled" : ""}>Previous</button>
+  <button class="btn" id="next" ${done ? "" : "disabled"}>${end ? "Finish and see results" : "Next question"}</button></div></section>${sb(st)}</div>`;
+        if (done && !q.isDropdown) $("#next").focus();
+      }
+
+      function pick(j) {
+        if (S.ans[S.i] !== null) return;
+        S.ans[S.i] = j;
+        quiz();
+      }
+
+      function go(d) {
+        if (d > 0 && S.ans[S.i] === null) return;
+        if (d > 0 && S.i === S.list.length - 1) {
+          const st = stats();
+          last = {
+            title: S.title,
+            right: st.right,
+            tot: S.list.length,
+            best: st.best,
+            by: st.by,
+            miss: st.miss,
+          };
+          try {
+            localStorage.setItem("cyberLast", JSON.stringify(last));
+          } catch (e) {}
+          S = null;
+          location.hash = "results";
+          return;
+        }
+        S.i = Math.max(0, S.i + d);
+        quiz();
+      }
+
+      function results() {
+        if (!last) {
+          app.innerHTML = `<h1>Take the quiz first</h1><p class="lede">You haven't finished a quiz yet. Your score and feedback will appear here.</p><div class="row"><a class="btn" href="#quiz">Take the quiz</a><a class="btn g" href="#topics">Read the topics</a></div>`;
+          return;
+        }
+        const R = last,
+          tot = R.tot,
+          pct = Math.round((R.right / tot) * 100);
+        const [h, m] =
+          pct >= 90
+            ? [
+                "Cyber champion",
+                "You spot threats fast. Teach someone else what you know.",
+              ]
+            : pct >= 70
+              ? [
+                  "Safe and sharp",
+                  "Solid habits. Review the topics below with lower scores.",
+                ]
+              : pct >= 50
+                ? [
+                    "Getting there",
+                    "You know the basics. Re-read the weaker topics and try again.",
+                  ]
+                : [
+                    "Time to review",
+                    "Read through the topics again, then retake the quiz.",
+                  ];
+        app.innerHTML = `<p class="meta">${E(R.title)} results</p><div class="score">${pct}%</div><h2>${h}</h2><p class="lede">${m} You got ${R.right} of ${tot} right. Best streak: ${R.best}.</p>
+  <h3>Score by topic</h3>${TOPICS.map((t, i) => (R.by[i][1] ? `<div class="tb"><a href="#topic/${i + 1}" style="color:inherit">${i + 1}.${t.n.split(" ").slice(0, 2).join(" ")}</a><div class="bar"><i style="width:${(R.by[i][0] / R.by[i][1]) * 100}%"></i></div><b>${R.by[i][0]}/${R.by[i][1]}</b></div>` : "")).join("")}
+  <div class="row"><a class="btn" href="#quiz">Take another quiz</a><a class="btn g" href="#topics">Review topics</a></div>
+  ${R.miss.length ? `<h3>Questions to review (${R.miss.length})</h3>${R.miss.map((x) => `<div class="miss"><b>${E(x.q)}</b><br>Your answer: ${E(x.y)}<br>Correct: ${E(x.a)}</div>`).join("")}` : "<p>No missed questions. Great job!</p>"}`;
+      }
+
+      app.addEventListener("click", (e) => {
+        const b = e.target.closest("button");
+        if (!b) return;
+        const d = b.dataset;
+        if (d.go) start(d.go);
+        else if (d.open !== undefined) {
+          open = open === +d.open ? -1 : +d.open;
+          topics();
+        } else if (d.pick !== undefined) pick(+d.pick);
+        else if (b.id === "next") go(1);
+        else if (b.id === "prev") go(-1);
+      });
+
+      $("#nav").addEventListener("click", (e) => {
+        const a = e.target.closest("a");
+        if (a && a.hash === "#quiz" && location.hash === "#quiz") {
+          S = null;
+          quiz();
+          window.scrollTo(0, 0);
+        }
+      });
+
+      function route() {
+        const [p, a] = (location.hash.slice(1) || "topics").split("/"),
+          n = +a - 1;
+        if (p !== "quiz") S = null;
+        const on = p === "topic" ? "topics" : p;
+        document
+          .querySelectorAll("#nav a")
+          .forEach((x) => x.classList.toggle("on", x.hash === "#" + on));
+        if (p === "topic" && n >= 0 && n < TOPICS.length) chapter(n);
+        else (({ quiz, results })[p] || topics)();
+        window.scrollTo(0, 0);
+      }
+
+      addEventListener("hashchange", route);
+      route();
+    </script>
+  </body>
+</html>
